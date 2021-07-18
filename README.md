@@ -1,2 +1,0 @@
-# spps
-Portfolio Demo
