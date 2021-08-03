@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <style>
+        .flex-container {
+            display: flex;
+            background-color: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .flex-container>div {
+            background-color: #f1f1f1;
+            margin: 10px;
+            padding: 20px;
+            font-size: 15px;
+        }
+        
+        .container {
+            border: 2px solid rgb(18, 18, 19);
+            padding: 20px 40px 40px;
+            max-width: 640px;
+            display: flex;
+            &__image {
+                margin: 20px 30px 0 0;
+                width: 200px;
+                object-fit: contain;
+                align-self: flex-start;
+            }
+            &__text {
+                flex: 1 1 auto;
+            }
+        }
+    </style>
+
+    <script type="text/javascript">
+        function getdata() {
+
+            var req = new XMLHttpRequest();
+            req.open('GET', 'https://api.github.com/users');
+            req.onload = function() {
+                var people = JSON.parse(req.responseText);
+                var output = '';
+                for (var i in people) {
+                    output +=
+                        '<div class="container">' +
+                        '<div class="container__image">' +
+                        '<img src="' + people[i].avatar_url + '" width =" 150" height="150">' +
+                        '</div>' +
+                        '<div class="container__text" >' +
+                        '<ul>' +
+                        '<li>ID: ' + people[i].id + '</li>' +
+                        '<li>Login: ' + people[i].login + '</li>' +
+                        '<li>Repos: ' + people[i].repos_url + '</li>' +
+                        '<li>Following url: ' + people[i].following_url + '</li>' +
+                        '<li>organizations_url: ' + people[i].organizations_url + '</li>' +
+                        '</ul>' +
+                        '</div>' +
+                        '</div>';
+
+                }
+                document.getElementById('div1').innerHTML = output;
+
+
+            }
+
+            req.send();
+
+        }
+    </script>
+</head>
+
+<body>
+    <input type="button" name="name" onclick="getdata()" value="Load Github user"></button>
+    <div id="div1" class="flex-container"></div>
+
+</body>
+
+</html>
